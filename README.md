@@ -1,6 +1,6 @@
 # bfrrck
 
-An Brainfu*k interpreter implementaion by Rust.
+Brainfu*k interpreter implementaion by Rust.
 
 ## TODO
 
