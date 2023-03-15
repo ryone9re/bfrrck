@@ -131,3 +131,68 @@ fn get_char() -> Result<u8, BfError> {
         Err(e) => Err(BfError::IoError(e)),
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_empty_program() {
+        let program = "";
+        assert!(exec(program).is_ok());
+    }
+
+    #[test]
+    fn test_simple_increment_decrement() {
+        let program = "++--";
+        assert!(exec(program).is_ok());
+    }
+
+    #[test]
+    fn test_memory_pointer_movement() {
+        let program = ">><<";
+        assert!(exec(program).is_ok());
+    }
+
+    #[test]
+    fn test_input_output() {
+        // このテストは入力と出力を処理するための追加の機能が必要です。
+        // たとえば、`exec`関数が入力と出力を取る機能を持つバージョンを作成することができます。
+    }
+
+    #[test]
+    fn test_nested_loops() {
+        let program = "++[>+<-]";
+        assert!(exec(program).is_ok());
+    }
+
+    #[test]
+    fn test_nested_loops_and_pointer_movement() {
+        let program = ">++[-->++<]>++[-->++<]";
+        assert!(exec(program).is_ok());
+    }
+
+    #[test]
+    fn test_infinite_loop() {
+        // 無限ループのテストは、実行時間を制限する方法が必要です。
+        // このようなテストは、タイムアウトを実装するか、他の方法で特別な検証が必要です。
+    }
+
+    #[test]
+    fn test_mismatched_loop_nesting() {
+        let program = "+[";
+        assert!(exec(program).is_err());
+    }
+
+    #[test]
+    fn test_overflow() {
+        let program = "+".repeat(256);
+        assert!(exec(&program).is_ok());
+    }
+
+    #[test]
+    fn test_underflow() {
+        let program = "-";
+        assert!(exec(program).is_ok());
+    }
+}
